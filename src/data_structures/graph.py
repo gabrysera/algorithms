@@ -1,8 +1,10 @@
 class Node:
-    def __init__(self, id):
+    def __init__(self, id, ingoing_edges = [], outgoing_edges = [], visited:bool = False):
         self.id = id   
-        self.ingoing_edges = []
-        self.outgoing_edges = [] 
+        self.ingoing_edges = ingoing_edges
+        self.outgoing_edges = outgoing_edges
+        self.visisted = visited
+
 
     #maybe for these 2 functions make such that current node is always first in the edges in the list
     def add_ingoing_edge(self, edge):
@@ -11,11 +13,17 @@ class Node:
     def add_outgoing_edge(self, edge):
         self.outgoing_edges.append(edge)
 
+
+
+
 class Edge:
-    def __init__(self, x:Node, y:Node, flow:int = 0, capacity:int = 0):
+    def __init__(self, x:Node, y:Node, flow:int = 0, capacity:int = 0, residual_capacity = 0):
         if capacity < flow:
             raise ValueError(f"flow cannot be bigger than capacity for edge {x,y}")
         self.edge = (x,y)
+        self.capacity = capacity
+        self.flow = flow
+        self.residual_capacity = residual_capacity
         x.add_outgoing_edge(self.edge)
         y.add_ingoing_edge(self.edge)
         
