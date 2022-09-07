@@ -20,9 +20,10 @@ def depth_first_search_for_augmented_path(G:Graph, source:Node, sink:Node) -> tu
     exist_augmented_path = True
     for node in G.V:
         node.visisted = False
-    def dfs(u):
+    dfs(source)
+    def dfs(u:Node):
         u.visited = True
-        for (u, node) in u.add_outgoing_edge:
+        for (u, node) in u.outgoing_edges:
             if node.visited == False:
                 path.append(node)
                 tree.add_child(u,node)

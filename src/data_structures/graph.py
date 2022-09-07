@@ -1,8 +1,8 @@
 class Node:
-    def __init__(self, id, ingoing_edges = [], outgoing_edges = [], visited:bool = False):
+    def __init__(self, id, visited:bool = False):
         self.id = id   
-        self.ingoing_edges = ingoing_edges
-        self.outgoing_edges = outgoing_edges
+        self.ingoing_edges = []
+        self.outgoing_edges = []
         self.visisted = visited
 
 
@@ -20,6 +20,8 @@ class Edge:
     def __init__(self, x:Node, y:Node, flow:int = 0, capacity:int = 0, residual_capacity = 0):
         if capacity < flow:
             raise ValueError(f"flow cannot be bigger than capacity for edge {x,y}")
+        self.x = x
+        self.y = y
         self.edge = (x,y)
         self.capacity = capacity
         self.flow = flow
@@ -40,6 +42,12 @@ class Graph:
             raise ValueError(f"some of these edges contains vertex that are not in the graph!!")
         self.E = E
         self.V = V
+        self.dictE = {}
+        for e in E:
+            self.dictE[(e.edge[0],e.edge[1])] = e
+        
+    def getEdge(self, x:Node, y:Node):
+        self.dictE.get((x,y))
 
 class Bipartition:
 
