@@ -1,4 +1,6 @@
-from graph import *
+from __future__ import annotations
+from .graph import *
+
 
 class Tree:
     def __init__(self, root:Node, edges:list[Edge]=[]):
